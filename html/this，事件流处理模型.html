@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>this</title>
+	<style type="text/css">
+		.box{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+		}
+		.wrapper{
+			width: 380px;
+			height:380px;
+			background-color: red;
+		
+
+		}
+		.content{
+			width: 240px;
+			height:240px;
+			background-color: green;
+			
+		}
+		.inner{
+			width: 100px;
+			height:100px;
+			background-color: yellow;
+		}
+	</style>
+</head>
+<body>
+		<!-- <div class="box"></div> -->
+		<div class="wrapper">
+			<div class="content">
+				<div class="inner"></div>
+			</div>
+		</div>
+		<!-- 页面不发生跳转 -->
+		<a href="javascript:void(false);">点击事件</a>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>0</li>
+		</ul>
+ <input type="" value="请输入用户名" name="">
+</body>
+</html>
+<script type="text/javascript">
+	// box.onclick=function(){
+	// 	//触发事件为this
+
+
+	// 事件流/事件处理模型：事件执行的顺序
+	//1 冒泡型（子>父）：在布局上存在父子级关系的元素，事件执行时按照从内往外的顺序
+	//  冒泡型:false,从内往外执行自底向上
+		
+	//2 捕获型:在布局上存在父子级关系的元素，事件执行时按照从外往内执行的顺序
+	//  捕获型:true,从外往内执行自顶向下
+
+	//3 同一事件源的 同一事件：先捕获和自己的事件后冒泡（先捕获父元素元素，再处理自己，然后父级冒泡）
+
+	//4 阻止冒泡：wrapper.addElementListener("click",function(e){e.cancelBubble=true;}
+	//5 浏览器默认行为：右键出菜单，a跳转，表单提交 
+		// 阻止浏览器默认行为（右键出菜单）e.prevenDefault();
+	//阻止a链接的默认行为 （页面不发生跳转） a href="javascript:void(false);"（void相当于写在行内的return false）
+		// <a href="javascript:void(false);">点击事件</a>
+	// 6 事件委派：
+	// 优点：提高性能，不需要循环的给元素添加事件
+		// 灵活：当有新的子元素时，不需要重新获取
+
+
+
+	// 7 事件分类：
+	  //鼠标事件(先down+up)（左中右键分别对应的button值是0,1,2）
+	  // 通过两次点击之间的时间间隔，可以判断是单击还是双击
+	  // 一次click=mousedown+mouseup
+	  	// click/mouseover/mouseout/mousedown/mouseenter/mouseleave/mouseup/mousemove/mouseclick/contextmenu
+
+/*// 判断鼠标点的左中右键
+	wrapper.onmousedown=function(e){
+		if(e.button==0){
+			console.log("左键");
+		}else if(e.button==1){
+			console.log("中键");
+		}else{
+			console.log("右键");
+		}
+	}*/
+
+	  // 移动端的事件：touchstart/touchmove/touchhend
+	  //键盘事件
+	  	// keydown/keypress/kerup/
+	  	// 键盘上的所有按键onpress：字符类的按键
+	  	/*document.onkeydown=function(event){
+	  		console.log(event.key);
+	  	}
+	  	document.onkeypress=function(event){
+	  		console.log(String.fromCharCode(event.charCode));
+	  	}*/
+
+	  //表单事件
+	  	// submit/change/focus/blur/reset/input
+	  	// oninput事件，写了什么就输出什么
+	  	/*let inputs=document.querySelector("input");
+	  	inputs.oninput=function(){
+	  		console.log(this.value);
+	  	}*/
+
+
+	  	// change事件，监测获得焦点和失去焦点时内容是否发生变化，发生了变化才会执行
+	  /*	inputs.onchange=function(){
+	  		console.log(this.value);
+	  	}*/
+
+
+
+	  //窗口事件（整个页面（整个DOM树）全部加载完成，html解析完成，图片下载完才执行window.onload   浪费时间  建议js代码放在页面后面，）
+	  	// load/resize/scroll
+	  /*	window.onload=function(){
+
+	  	}
+*/
+
+
+
+
+
+
+
+		// 盒子模型
+		//问题描述： 当父元素，子元素既没有浮动也没有边框时，会产生margin-top的问题，给子元素设置的margin-top会作用于父元素
+		// 解决方法：1 用父元素的paddingtop模拟子元素的margin-top/box-sizing:border-box
+		// 			2 给父元素设置overflow:hidden
+				//  3 转化为行内块元素
+				//  4 给父元素设置border
+				//  5 给子元素设置：position：absolute;(不推荐)
+	let box=document.querySelector(".box");
+	let wrapper=document.querySelector(".wrapper");
+	let content=document.querySelector(".content");
+	let inner=document.querySelector(".inner");
+	
+	
+	
+
+	
+
+	wrapper.onclick=function(){
+		console.log("wrapper");
+	}
+	content.onclick=function(){
+		console.log("content");
+	}
+	inner.onclick=function(){
+		console.log("inner");
+	}
+
+ 
+ 	
+	// wrapper.addElementListener("click",function(e){
+	// // 	console.log("666");	 	
+	// // 阻止冒泡(IE浏览器)
+	// 	e.cancelBubble=true;
+	// 	// 或者
+	// // e.stopPropagation();		
+
+	// },false);
+	
+		
+	
+	// content.addElementListener("click",function(){
+	// 	// console.log("777");
+	// 	e.cancelBubble=true;
+	// },false);
+	
+		
+	
+	// inner.addElementListener("click",function(){
+	// 	// console.log("888");
+	// 	e.cancelBubble=true;
+
+	// },false);
+	
+	
+
+
+	// 右键出菜单
+	document.body.oncontextmenu=function(e){
+		// 阻止浏览器默认行为
+		e.prevenDefault();
+		console.log("你正在右击");
+	}
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	let li =document.querySelector("li");
+	let ul=document.querySelector("ul");
+
+	// 事件委派
+	ul.onclick=function(){
+		console.log(e.target.innerHTML)
+	}
+	
+	li.innerHTML=11;
+	ul.appendChild(li);
+
+
+
+
+
+
+
+
+</script>
